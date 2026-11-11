@@ -58,6 +58,10 @@ def realizar_deposito(
             detail="Conta não encontrada"
         )
 
+    if conta["cliente_id"] != payload["id"]:
+        conn.close()
+        raise HTTPException(status_code=403, detail="Account access not authorized")
+
     if valor <= 0:
         conn.close()
         raise HTTPException(
@@ -107,7 +111,7 @@ def realizar_saque(
 
     cursor.execute(
         """
-        SELECT saldo
+        SELECT saldo, cliente_id
         FROM contas
         WHERE id = ?
         """,
@@ -123,7 +127,15 @@ def realizar_saque(
             detail="Conta não encontrada"
         )
 
-    saldo_atual = conta[0]
+    if conta["cliente_id"] != payload["id"]:
+        conn.close()
+        raise HTTPException(status_code=403, detail="Account access not authorized")
+
+    if valor <= 0:
+        conn.close()
+        raise HTTPException(status_code=400, detail="valor deve ser maior que zero")
+
+    saldo_atual = conta["saldo"]
 
     if saldo_atual < valor:
         conn.close()
@@ -180,6 +192,7 @@ def listar_transaçoes(
             clientes.id,
             clientes.nome,
             clientes.email,
+            contas.id,
             contas.tipo_conta,
             contas.saldo,
             transacoes.id,
@@ -215,16 +228,17 @@ def listar_transaçoes(
                 "cliente_id": item[0],
                 "nome": item[1],
                 "email": item[2],
-                "tipo_conta": item[3],
-                "saldo": item[4],
+                "conta_id": item[3],
+                "tipo_conta": item[4],
+                "saldo": item[5],
                 "transacoes": []
             }
-        if item[5] is not None:
+        if item[6] is not None:
             resultado[cliente_id]["transacoes"].append(
                 {
-                    "id": item[5],
-                    "tipo": item[6],
-                    "valor": item[7]
+                    "id": item[6],
+                    "tipo": item[7],
+                    "valor": item[8]
 
 
                 }

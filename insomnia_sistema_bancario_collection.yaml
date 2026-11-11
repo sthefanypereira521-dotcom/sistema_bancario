@@ -34,7 +34,37 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - url: http://127.0.0.1:8000/auth/login
+  - url: http://127.0.0.1:8000/auth/cadastro
+    name: auth/cadastro
+    meta:
+      id: req_a0c34a8f8d1444dc9dd1c19ac8bf06ef
+      created: 1794427200000
+      modified: 1794427200000
+      isPrivate: false
+      description: Cadastro publico de cliente
+      sortKey: -1794427200000
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "Ana Silva",
+          "email": "ana@example.com",
+          "senha": "senha-segura-123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: none
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true  - url: http://127.0.0.1:8000/auth/login
     name: auth/login
     meta:
       id: req_24743a4a59cf4be7b59e6096a5012a7e
@@ -48,8 +78,8 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "email": "beatriz@gmail.com",
-          "senha": "007755"
+          "email": "seu-email@example.com",
+          "senha": "SUA_SENHA_AQUI"
         }
     headers:
       - name: Content-Type
@@ -211,10 +241,7 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "numero_conta": "string",
-          "tipo_conta": "string",
-          "saldo": 0,
-          "cliente_id": 0
+          "tipo_conta": "corrente"
         }
     headers:
       - name: Content-Type

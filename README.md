@@ -1,75 +1,66 @@
-# Sistema Bancário — API REST
+# Sistema bancario
 
-API de sistema bancário desenvolvida com FastAPI e SQLite, com autenticação JWT.  
-Projeto de portfólio construído para praticar desenvolvimento backend com Python.
+API REST para um sistema bancario, com interface web para cadastro, login, consulta de saldo e movimentacoes.
 
+## Tecnologias
 
+- Python, FastAPI e SQLite
+- Autenticacao JWT
+- React, TypeScript e Vite
 
-##  Tecnologias
+## Requisitos
 
-- Python 3.14
-- FastAPI
-- SQLite3
-- JWT (autenticação)
+- Python e Poetry
+- Node.js e npm
 
+## Como rodar localmente
 
+### 1. Instale as dependencias da API
 
+Na pasta raiz do projeto, rode:
 
-##  Funcionalidades
+```powershell
+poetry install --no-root
+```
 
-- Cadastro e gerenciamento de clientes
-- Criação e consulta de contas bancárias
-- Depósito e saque com validação de saldo
-- Extrato de transações por cliente
-- Autenticação com token JWT
+### 2. Inicie a API
 
+Ainda na pasta raiz, rode:
 
+```powershell
+poetry run uvicorn main:app --reload --host 127.0.0.1
+```
 
+Deixe esse terminal aberto. A API fica em `http://127.0.0.1:8000` e a documentacao interativa em `http://127.0.0.1:8000/docs`.
 
-###  Como rodar localmente
+### 3. Inicie a interface web
 
-**Clone o repositório**
+Abra um segundo terminal e rode:
 
 git clone https://github.com/sthefanypereira521-dotcom/sistema_bancario
 cd sistema-bancario
 
+O Vite mostra o endereco local no terminal; normalmente e `http://127.0.0.1:5173`. Mantenha os dois terminais abertos enquanto usa o sistema. Para iniciar novamente, `npm install` so precisa ser executado na primeira vez ou quando as dependencias mudarem; depois, use `npm run dev -- --host 127.0.0.1`.
 
-**Instale as dependências com Poetry**
-**poetry install**
+Por padrao, o frontend acessa a API em `http://127.0.0.1:8000`. Para apontar para outro endereco, defina `VITE_API_URL` no ambiente do Vite.
 
+## Cadastro e login
 
-### Rode o servidor
+Na interface web, selecione **Criar cadastro** e informe nome, e-mail e senha. O sistema cria o perfil e uma conta corrente com saldo inicial zero. Depois, entre com o mesmo e-mail e senha.
 
-**poetry run uvicorn main:app --reload**
+As rotas correspondentes sao `POST /auth/cadastro` e `POST /auth/login`. As rotas protegidas usam o token JWT no cabecalho:
 
-
-**Acesse a documentação interativa**
-
-http://localhost:8000/docs
-
-
-
-
-##  Autenticação
-
-**As rotas protegidas exigem token JWT no header**
-
-
+```text
 Authorization: Bearer <seu_token>
-Obtenha o token na rota  POST /auth/token com email e senha.
+```
 
+## Testar com o Insomnia
 
-## Testando as rotas
+Importe `insomnia_sistema_bancario_collection.yaml` no Insomnia para acessar os exemplos de requisicoes. Tambem e possivel testar as rotas pela documentacao em `http://127.0.0.1:8000/docs`.
 
-**As rotas foram testadas com o Insomnia.**
-O arquivo `insomnia_sistema_bancario_collection.yaml` 
-está na raiz do projeto.
+## Autora
 
-Para importar:
-1. Abra o Insomnia
-2. Clique em Import
-3. Selecione o arquivo .yaml
-4. Todas as rotas já estarão configuradas
+Sthefany - desenvolvedora backend em formacao.
 
 
 

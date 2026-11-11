@@ -1,5 +1,6 @@
+from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Conta(BaseModel):
@@ -7,14 +8,15 @@ class Conta(BaseModel):
     saldo: float
 
 
-class Criar_Conta(BaseModel):
-    numero_conta: str
-    tipo_conta: str
-    saldo: float
-    cliente_id: int
+class CriarConta(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    tipo_conta: Literal["corrente", "poupanca"] = Field(
+        description="Tipo da conta bancária"
+    )
 
 
-class Conta_resposta(BaseModel):
+class ContaResposta(BaseModel):
     id: int
     numero_conta: str
     tipo_conta: str
