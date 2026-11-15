@@ -26,7 +26,14 @@ A interface fica em `http://localhost:5173`, a API em `http://localhost:8000` e 
 
 Os dados do SQLite ficam no volume Docker `banco_dados` e são preservados ao recriar os contêineres. Para apagar o banco e os dados, execute `docker compose down -v`.
 
-O Compose usa uma chave JWT local de desenvolvimento por padrão. Antes de publicar ou usar fora da máquina local, defina uma `SECRET_KEY` forte no arquivo `.env`.
+Antes de iniciar, crie o arquivo `.env` copiando `.env.example` e defina uma chave aleatória forte em `SECRET_KEY`. O Compose não inicia sem essa chave. Exemplo para gerar uma chave no PowerShell:
+
+```powershell
+$bytes = New-Object byte[] 48
+[Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
+$secret = [Convert]::ToBase64String($bytes)
+@("SECRET_KEY=$secret", "ALGORITHM=HS256", "ACCESS_TOKEN_EXPIRE_MINUTES=30") | Set-Content .env
+```
 
 ## Como rodar localmente
 

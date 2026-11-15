@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: sistema-bancario-api
     environment:
-      SECRET_KEY: ${SECRET_KEY:-chave-local-para-desenvolvimento}
+      SECRET_KEY: ${SECRET_KEY:?Defina SECRET_KEY no arquivo .env antes de iniciar}
       ALGORITHM: ${ALGORITHM:-HS256}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
     ports:
