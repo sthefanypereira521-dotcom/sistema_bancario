@@ -10,8 +10,23 @@ API REST para um sistema bancario, com interface web para cadastro, login, consu
 
 ## Requisitos
 
-- Python e Poetry
-- Node.js e npm
+- Docker Desktop com Docker Compose
+- (Opcional para rodar sem Docker) Python e Poetry
+- (Opcional para rodar sem Docker) Node.js e npm
+
+## Como rodar com Docker
+
+Na pasta raiz do projeto, execute:
+
+```powershell
+docker compose up --build
+```
+
+A interface fica em `http://localhost:5173`, a API em `http://localhost:8000` e a documentação em `http://localhost:8000/docs`. Para encerrar, use `Ctrl+C`; para iniciar em segundo plano, acrescente `-d`.
+
+Os dados do SQLite ficam no volume Docker `banco_dados` e são preservados ao recriar os contêineres. Para apagar o banco e os dados, execute `docker compose down -v`.
+
+O Compose usa uma chave JWT local de desenvolvimento por padrão. Antes de publicar ou usar fora da máquina local, defina uma `SECRET_KEY` forte no arquivo `.env`.
 
 ## Como rodar localmente
 

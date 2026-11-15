@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL COLLATE NOCASE UNIQUE,
+    senha TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    numero_conta TEXT NOT NULL UNIQUE,
+    tipo_conta TEXT NOT NULL,
+    saldo REAL NOT NULL DEFAULT 0,
+    cliente_id INTEGER NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes (id)
+);
+
+CREATE TABLE IF NOT EXISTS transacoes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo TEXT NOT NULL,
+    valor REAL NOT NULL,
+    conta_id INTEGER NOT NULL,
+    FOREIGN KEY (conta_id) REFERENCES contas (id)
+);
